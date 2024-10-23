@@ -38,9 +38,17 @@ app.post('/services',async(req,res)=>{
 });
 app.get('/services/pin',async(req, res)=>{
     const{pinCode}=req.query;
-    console.log(pinCode)
+    //console.log(pinCode)
     const services= await Service.find({pinCode: pinCode});
     res.json(services);
+})
+app.delete('/services/name',async(req,res)=>{
+    const {name}=req.query;
+    const service=await Service.findOneAndDelete({name:name});
+    if(!service){
+        return res.status(404).json({message:"Service not found"});
+    }
+    res.json({message:"Service deleted sucessfully"})
 })
 
 //starting server

@@ -4,6 +4,7 @@ import Home from "./Home";
 import Signup from "./Signup";
 import Login from "./Login";
 import Add_Entry from "./Add_Entry";
+import Delete from "./Delete";
 
 function App(){
     return(

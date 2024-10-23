@@ -36,7 +36,8 @@ body {
   }
   
   button {
-    width: 5%;
+    margin-top: 25px;
+    width: 15%;
     padding: 10px;
     background-color: #4CAF50;
     color: white;
