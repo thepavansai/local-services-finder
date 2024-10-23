@@ -16,10 +16,12 @@ function App(){
   
   //addService function
   const addService=()=>{
-    axios.post('http://localhost:5000/services',{name, type, rating,contact})
-    .then(response=>setServices([...services , response.data]))
+    const service={name, type, rating,contact,pinCode}
+    axios.post('http://localhost:5000/services',service)
+    .then(response=>{setServices([...services , response.data]);
+      setPinCode('')
+    })
     .catch(error=>console.error(error)) 
-    console.log({name,type,rating,contact})
   }
   //Rendering
   return(
@@ -30,12 +32,13 @@ function App(){
         <input type='text' value={type} onChange={e=>setType(e.target.value)} placeholder="Service type"/><br></br>
         <input type='number' value={rating} onChange={e=>setRating(e.target.value)} placeholder="Rating out of 5 starts" /><br></br>
         <input type='text' value={contact} onChange={e=>setContact(e.target.value)} placeholder="Conact Details"/><br></br>
-        <input type='text' value={pinCode} onChange={e=>setPinCode(e.target.value)} placeholder='Enter Pincode'/>
+        <input type="text" value={pinCode} onChange={e => setPinCode(e.target.value)} placeholder="Enter Pincode" /><br/>
       </div>
       <button onClick={addService}>Add Entry</button>
       <div>
         <ul>{services.map(service=>(<li key={service.id}> Service Name:
-          {service.name}<br></br>Rating: {service.rating}  Type: {service.type}<br></br>Contact:{service.contact}
+          {service.name}<br></br>Rating: {service.rating}  Type: {service.type}<br></br>Contact:{service.contact} <br></br>
+          Pincode:{pinCode}
 
         </li>))}</ul>
       </div>

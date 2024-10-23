@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyparser.json());
 
 //db connection
-mongoose.connect('your_mongoDB_connection_string', {
+mongoose.connect('mongodb://localhost/27017', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -27,12 +27,12 @@ const ServiceSchema= new mongoose.Schema({
 const Service = mongoose.model('Service',ServiceSchema);
 //routes for get and post
 
-app.get('/service',async(req, res)=>{
+app.get('/services',async(req, res)=>{
     const services= await Service.find();
     res.json(services);
 })
 app.post('/services',async(req,res)=>{
-    const service = new Service(req.body());
+    const service = new Service(req.body);
     await service.save();
     res.json(service);
 });
