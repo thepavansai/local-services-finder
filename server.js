@@ -36,6 +36,12 @@ app.post('/services',async(req,res)=>{
     await service.save();
     res.json(service);
 });
+app.get('/services/pin',async(req, res)=>{
+    const{pinCode}=req.query;
+    console.log(pinCode)
+    const services= await Service.find({pinCode: pinCode});
+    res.json(services);
+})
 
 //starting server
 

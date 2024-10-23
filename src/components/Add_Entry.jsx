@@ -8,15 +8,24 @@ function Add_Entry(){
   const [rating,setRating]=useState('');
   const [contact,setContact]= useState('');
   const [pinCode,setPinCode]=useState('');
+  const [error, setError]=useState('');
   useEffect(()=>{
     axios.get('http://localhost:5000/services')
     .then(response=>setServices(response.data))
     .catch(error=>console.error(error));
   },[])
+
   
   //addService function
   const addService=()=>{
-    
+    if(!name || !type || !rating || !contact || !pinCode) {
+      setError('All fields are required!')
+    }
+    else if (rating < 1 || rating > 5) {
+      setError('Rating must be between 1 and 5.');
+      return;
+    }
+    else{
     axios.post('http://localhost:5000/services',{name, type, rating,contact,pinCode})
     .then(response=>{setServices([...services , response.data]);
       setPinCode('')
@@ -26,6 +35,7 @@ function Add_Entry(){
       setRating('')
     })
     .catch(error=>console.error(error)) 
+  }
   }
   //Rendering
   return(
@@ -40,6 +50,8 @@ function Add_Entry(){
       </div>
       <button onClick={addService}>Add Entry</button>
       <div>
+      {error && <div className="error-message">{error}</div>}
+
         <ul>{services.map(service=>(<li key={service.id}> Service Name:
           {service.name}<br></br>Rating: {service.rating}  Type: {service.type}<br></br>Contact:{service.contact} <br></br>
           Pincode:{service.pinCode}
