@@ -9,4 +9,9 @@ Currently, two official plugins are available:
 
 # HomePage
 
-![HomePage](image.png)
+![HomePage](./src/images/image.png)
+
+
+# Sign-up Page
+
+![alt text](./src/images/Screenshot%202024-10-23%20234246.png)
