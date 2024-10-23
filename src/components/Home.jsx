@@ -5,36 +5,39 @@ import Navbar from './Navbar';
 import axios from 'axios';
 
 function Home() {
-  /*
   const [showPopup, setShowPopup] = useState(true);
+  const [pinCode, setPinCode] = useState('');
+  const [services, setServices] = useState([]);
+  const [error, setError] = useState('');
+
   useEffect(() => {
     const hasVisited = localStorage.getItem('hasVisited');
     if (!hasVisited) {
       setShowPopup(true);
+    } else {
+      setShowPopup(false);
     }
   }, []);
+
   const closePopup = () => {
     setShowPopup(false);
     localStorage.setItem('hasVisited', 'true');
   };
-  // {showPopup && <WelcomePopup onClose={closePopup} />}
-  */
-  const [pinCode,setPinCode]=useState('');
-  const [services ,setServices]=useState([]);
-  const [error ,setError]=useState('');
-  const searchservice=()=>{
+
+  const searchService = () => {
     axios.get(`http://localhost:5000/services/pin?pinCode=${pinCode}`)
-    .then(response =>{
-      if(response.data.length==0){
-        setError("No Services Found");}
-        else{
-          setServices(response.data)
-        setError('')}
-        //console.log('Response data:', response.data)
-  })
-    .catch(error=>{
-      setError("Error Fetching data ,"+error.message)
-      console.error("Error fetching pincode ")})
+      .then(response => {
+        if (response.data.length === 0) {
+          setError("No Services Found");
+        } else {
+          setServices(response.data);
+          setError('');
+        }
+      })
+      .catch(error => {
+        setError("Error Fetching data: " + error.message);
+        console.error("Error fetching pin code:", error);
+      });
   };
 
   return (
@@ -44,18 +47,29 @@ function Home() {
         <div className='homep'>
           <Navbar />
         </div>
+        {showPopup && <WelcomePopup onClose={closePopup} />}
         <div className='search-item'>
-          <input type='text' value={pinCode} onChange={e=>setPinCode(e.target.value)}
-          placeholder='Enter Pincode'/><br></br>
-          <button onClick={searchservice}>Search</button>
+          <input 
+            type='text' 
+            value={pinCode} 
+            onChange={e => setPinCode(e.target.value)}
+            placeholder='Enter Pincode'
+          /><br/>
+          <button onClick={searchService}>Search</button>
         </div>
       </div>
       <div className='display'>
-      {error && <div className="error-message">{error}</div>}
-      <ul>{services.map(service=>(<li key={service._id}> Service Name:
-          {service.name}<br></br>Rating: {service.rating}  Type: {service.type}<br></br>Contact:{service.contact} <br></br>
-          Pincode:{service.pinCode}
-           </li>))}</ul>
+        {error && <div className="error-message">{error}</div>}
+        <ul>
+          {services.map(service => (
+            <li key={service._id}>
+              Service Name: {service.name}<br/>
+              Rating: {service.rating} Type: {service.type}<br/>
+              Contact: {service.contact}<br/>
+              Pincode: {service.pinCode}
+            </li>
+          ))}
+        </ul>
       </div>
     </center>
   );
