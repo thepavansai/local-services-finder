@@ -10,3 +10,7 @@ Currently, two official plugins are available:
 # HomePage
 
 ![HomePage](src/img/image.png)
+
+# Sign-up Page
+
+![Signup page](<src/img/Screenshot 2024-10-23 234246.png>)
