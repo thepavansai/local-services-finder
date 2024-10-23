@@ -9,4 +9,4 @@ Currently, two official plugins are available:
 
 # HomePage
 
-![HomePage](image.png)
+![HomePage](src/img/image.png)
