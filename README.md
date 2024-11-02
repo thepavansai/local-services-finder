@@ -4,7 +4,8 @@ React, Node.js) to help users find and manage local services based on pin codes.
 features CRUD operations and efficient pin code-based search functionality. The application uses
 MongoDB for database management and React for a sleek, responsive frontend
 
-
+# Only Frontend was deployed  
+https://local-service-finder.netlify.app/
 
 
 # HomePage
